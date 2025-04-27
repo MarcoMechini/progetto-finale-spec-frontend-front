@@ -37,7 +37,8 @@ form label {
 }
 
 /* Stile per i risultati */
-div {
+section div,
+form div {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -72,8 +73,8 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    justify-content: space-between;
-    /* Per distribuire uniformemente le card */
+    justify-content: center;
+    /* Center alignment */
 }
 
 .card {
@@ -92,4 +93,11 @@ a:hover {
 .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Aggiunto uno stile per i div delle righe 87 e 88 */
+.sortable-header {
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px 0;
 }

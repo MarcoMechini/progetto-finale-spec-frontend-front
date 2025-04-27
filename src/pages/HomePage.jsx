@@ -7,6 +7,8 @@ export default function HomePage() {
     const [searchInput, setSearchInput] = useState('')
     const [boxInput, setBoxInput] = useState('')
     const [data, setData] = useState([])
+    const [sortOrder, setSortOrder] = useState(1)
+    const [sortBy, setSortBy] = useState('title')
 
     const allCategory = useMemo(() => {
         return data.map((item) => item.category)
@@ -21,6 +23,18 @@ export default function HomePage() {
         getData()
     }, [])
 
+    const handleSort = (e) => {
+
+
+        const currOrder = e.target.dataset.value
+        if (sortBy === currOrder) {
+            setSortOrder(prev => prev * -1);
+        } else {
+            setSortBy(currOrder);
+            setSortOrder(1);
+        }
+    }
+
     const orderedData = useMemo(() => {
         let result = [...data]
 
@@ -31,8 +45,26 @@ export default function HomePage() {
         if (boxInput) {
             result = result.filter((item) => item.category.toLowerCase().includes(boxInput.toLowerCase()))
         }
+
+
+        if (sortBy === "title") {
+            result.sort((a, b) =>
+                sortOrder === 1
+                    ? a.title.localeCompare(b.title)
+                    : b.title.localeCompare(a.title)
+            );
+        }
+        else if (sortBy === "category") {
+            result.sort((a, b) =>
+                sortOrder === 1
+                    ? a.category.localeCompare(b.category)
+                    : b.category.localeCompare(a.category)
+            );
+        }
         return result
-    }, [data, searchInput, boxInput])
+    }, [data, searchInput, boxInput, sortBy, sortOrder])
+
+    const arrow = (sortOrder === -1 ? '▲' : '▼');
 
     return (
         <>
@@ -45,7 +77,9 @@ export default function HomePage() {
                     </div>
                 ))}
             </form>
-            <section className='card-container'>
+            <div data-value='category' className="sortable-header" onClick={handleSort}>category {sortBy === 'category' ? arrow : ''}</div>
+            <div data-value='title' className="sortable-header" onClick={handleSort}>title {sortBy === 'title' ? arrow : ''}</div>
+            <section className='card-container' style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                 {orderedData.map((item, index) => (
                     <div className='card' key={index}>
                         <h2>{item.title}</h2>
