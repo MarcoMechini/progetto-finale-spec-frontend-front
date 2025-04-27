@@ -1,0 +1,95 @@
+/* HomePage.css */
+
+/* Stile per il contenitore principale */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Stile per l'input di ricerca */
+input[type="ricerca"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Stile per il form delle categorie */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+form div {
+    display: flex;
+    align-items: center;
+}
+
+form label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+/* Stile per i risultati */
+div {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    margin: 0 0 10px;
+}
+
+p {
+    color: #666;
+    margin: 0 0 10px;
+}
+
+/* Stile per il link dei dettagli */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Modificato lo stile per rendere la classe .card visivamente simile a una card */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    /* Per distribuire uniformemente le card */
+}
+
+.card {
+    flex: 1 1 calc(33.333% - 16px);
+    /* Tre card per riga con spazio tra loro */
+    max-width: calc(33.333% - 16px);
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}

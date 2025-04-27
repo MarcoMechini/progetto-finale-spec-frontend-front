@@ -1,0 +1,41 @@
+/* DetailPage.css */
+
+/* Stile per il contenitore principale */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Stile per i dettagli */
+.detail-container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail-container h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.detail-container p {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Stile per il link di ritorno */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
