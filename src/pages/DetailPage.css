@@ -39,3 +39,55 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* Stile per la pagina dei dettagli */
+
+/* Stile per la sezione principale */
+.card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+/* Stile per il titolo */
+.card h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Stile per la categoria */
+.card div:first-of-type {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Stile per i valori nutrizionali */
+.nutritionalValues {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    color: #666;
+}
+
+.nutritionalValues:last-child {
+    border-bottom: none;
+}
+
+.nutritionalValues span:first-child {
+    font-weight: bold;
+}
+
+.nutritionalValues span:last-child {
+    color: #333;
+}

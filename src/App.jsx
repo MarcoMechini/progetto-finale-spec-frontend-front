@@ -20,7 +20,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/detail/:title" element={<DetailPage />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
 
         </Routes>
       </div>

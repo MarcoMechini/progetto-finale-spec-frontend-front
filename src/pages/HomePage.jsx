@@ -5,13 +5,21 @@ import './HomePage.css';
 
 export default function HomePage() {
     const [searchInput, setSearchInput] = useState('')
-    const [boxInput, setBoxInput] = useState('')
+    const [boxInput, setBoxInput] = useState([])
     const [data, setData] = useState([])
     const [sortOrder, setSortOrder] = useState(1)
     const [sortBy, setSortBy] = useState('title')
 
     const allCategory = useMemo(() => {
-        return data.map((item) => item.category)
+        // data.map((item) => item.category)
+        const cate = []
+        data.forEach((item) => {
+            if (!cate.includes(item.category)) {
+                cate.push(item.category)
+            }
+        })
+
+        return cate
     }, [data])
 
     const getData = async () => {
@@ -24,8 +32,7 @@ export default function HomePage() {
     }, [])
 
     const handleSort = (e) => {
-
-
+        e.preventDefault()
         const currOrder = e.target.dataset.value
         if (sortBy === currOrder) {
             setSortOrder(prev => prev * -1);
@@ -38,14 +45,13 @@ export default function HomePage() {
     const orderedData = useMemo(() => {
         let result = [...data]
 
-        if (searchInput) {
+        if (searchInput.trim()) {
             result = result.filter((item) => item.title.toLowerCase().includes(searchInput.toLowerCase()))
         }
 
-        if (boxInput) {
-            result = result.filter((item) => item.category.toLowerCase().includes(boxInput.toLowerCase()))
+        if (boxInput.length > 0) {
+            result = result.filter((item) => boxInput.includes(item.category))
         }
-
 
         if (sortBy === "title") {
             result.sort((a, b) =>
@@ -64,16 +70,21 @@ export default function HomePage() {
         return result
     }, [data, searchInput, boxInput, sortBy, sortOrder])
 
+
+    const handleBoxInput = e => {
+        setBoxInput(prev => prev.includes(e.target.value) ? prev.filter(item => item !== e.target.value) : [...prev, e.target.value])
+    }
+
     const arrow = (sortOrder === -1 ? '▲' : '▼');
 
     return (
-        <>
-            <input type="ricerca" name='search' value={searchInput} onChange={e => setSearchInput(e.target.value)} />
+        <>s
+            <input type="ricerca" placeholder='cerca per nome' name='search' value={searchInput} onChange={e => setSearchInput(e.target.value)} />
             <form>
                 {allCategory.map((item, index) => (
                     <div key={index}>
                         <label>{item}</label>
-                        <input type="checkbox" name='checkbox' value={item} onChange={e => setBoxInput(e.target.value)} />
+                        <input type="checkbox" name='checkbox' value={item} onChange={handleBoxInput} />
                     </div>
                 ))}
             </form>
@@ -84,7 +95,7 @@ export default function HomePage() {
                     <div className='card' key={index}>
                         <h2>{item.title}</h2>
                         <p>Categoria: {item.category}</p>
-                        <Link to={`/detail/${item.title}`}>Dettagli</Link>
+                        <Link to={`/detail/${item.id}`}>Dettagli</Link>
                     </div>
                 ))}</section>
         </>
