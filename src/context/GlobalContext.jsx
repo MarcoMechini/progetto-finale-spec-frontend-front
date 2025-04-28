@@ -1,17 +1,14 @@
 import { createContext, useContext } from "react";
-import useTask from "../hooks/useTasks";
-import './GlobalContext.css';
+import useLike from "../hooks/useLike";
 
 const GlobalContext = createContext();
 
 function GlobalProvider({ children }) {
-    const [tasks, addTask, removeTask, updateTask] = useTask();
+    const [like, handleLike] = useLike();
 
     const globalProviderValue = {
-        tasks,
-        addTask,
-        removeTask,
-        updateTask
+        like,
+        handleLike
     };
 
     return (

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import fetchData from '../utilities'
 import './HomePage.css';
+import { useGlobalContext } from '../context/GlobalContext';
+
 
 export default function HomePage() {
     const [searchInput, setSearchInput] = useState('')
@@ -9,22 +11,26 @@ export default function HomePage() {
     const [data, setData] = useState([])
     const [sortOrder, setSortOrder] = useState(1)
     const [sortBy, setSortBy] = useState('title')
+    const { like, handleLike } = useGlobalContext()
 
     const allCategory = useMemo(() => {
-        // data.map((item) => item.category)
-        const cate = []
+        const categorys = []
         data.forEach((item) => {
-            if (!cate.includes(item.category)) {
-                cate.push(item.category)
+            if (!categorys.includes(item.category)) {
+                categorys.push(item.category)
             }
         })
 
-        return cate
+        return categorys
     }, [data])
 
     const getData = async () => {
-        const response = await fetchData('http://localhost:3001/fruits')
-        setData(response)
+        try {
+            const response = await fetchData('http://localhost:3001/fruits')
+            setData(response)
+        } catch (error) {
+            console.error("Error fetching data:", error)
+        }
     }
 
     useEffect(() => {
@@ -78,7 +84,7 @@ export default function HomePage() {
     const arrow = (sortOrder === -1 ? '▲' : '▼');
 
     return (
-        <>s
+        <>
             <input type="ricerca" placeholder='cerca per nome' name='search' value={searchInput} onChange={e => setSearchInput(e.target.value)} />
             <form>
                 {allCategory.map((item, index) => (
@@ -94,6 +100,7 @@ export default function HomePage() {
                 {orderedData.map((item, index) => (
                     <div className='card' key={index}>
                         <h2>{item.title}</h2>
+                        <div className='like' onClick={() => handleLike(item.id)}>❤️</div>
                         <p>Categoria: {item.category}</p>
                         <Link to={`/detail/${item.id}`}>Dettagli</Link>
                     </div>

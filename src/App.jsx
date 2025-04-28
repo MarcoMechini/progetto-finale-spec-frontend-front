@@ -1,30 +1,33 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
+import { GlobalProvider } from './context/GlobalContext';
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/detail">detail</Link>
-            </li>
-          </ul>
-        </nav>
+    <GlobalProvider>
+      <BrowserRouter>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/detail">detail</Link>
+              </li>
+            </ul>
+          </nav>
 
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/detail/:id" element={<DetailPage />} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
 
-        </Routes>
-      </div>
-    </BrowserRouter>
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </GlobalProvider>
   );
 }
 
