@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom'
 import './DetailPage.css';
 import fetchData from '../utilities';
 import { useGlobalContext } from '../context/GlobalContext';
+import AppLike from '../components/AppLike';
 
 export default function DetailPage() {
 
     const { id } = useParams()
     const [fruitData, setFruitData] = useState({})
-    const { like, handleLike } = useGlobalContext()
 
     const getData = async () => {
         try {
@@ -27,7 +27,8 @@ export default function DetailPage() {
     return (
         <>
             <section className='card'>
-                <h1>{fruitData.title}</h1><div className='like' onClick={() => handleLike(id)}>❤️</div>
+                <h1>{fruitData.title}</h1>
+                <AppLike id={parseInt(id)}></AppLike>
                 <div>{fruitData.category}</div>
                 <div>Calories: {fruitData.calories}</div>
                 {fruitData.nutritionalValues && fruitData.nutritionalValues.map((item, index) => {

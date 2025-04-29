@@ -1,63 +1,139 @@
-/* HomePage.css */
+/* HomePage.css - Nuovo stile */
 
-/* Stile per il contenitore principale */
+/* Stile generale */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
     margin: 0;
     padding: 0;
+    color: #333;
 }
 
 /* Stile per l'input di ricerca */
 input[type="ricerca"] {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    max-width: 400px;
+    padding: 12px;
+    margin: 20px auto;
+    display: block;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
 }
 
 /* Stile per il form delle categorie */
 form {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
+    justify-content: center;
     margin: 20px 0;
 }
 
 form div {
     display: flex;
     align-items: center;
-}
-
-form label {
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-/* Stile per i risultati */
-section div,
-form div {
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+form label {
+    margin-right: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+/* Stile per i titoli ordinabili */
+.sortable-header {
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 8px;
+    margin: 10px auto;
+    max-width: 200px;
+    transition: background-color 0.3s;
+}
+
+.sortable-header:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per il contenitore delle card */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Stile per le card */
+.card {
+    flex: 1 1 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+    font-size: 20px;
     color: #333;
-    margin: 0 0 10px;
+    margin-bottom: 10px;
 }
 
-p {
+.card p {
+    font-size: 14px;
     color: #666;
-    margin: 0 0 10px;
+    margin-bottom: 15px;
 }
 
-/* Stile per il link dei dettagli */
+.card .like {
+    font-size: 18px;
+    color: #e63946;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.card .like:hover {
+    color: #d62828;
+}
+
+/* Animazione per il like */
+@keyframes like-animation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.card .like.clicked {
+    animation: like-animation 0.3s ease-in-out;
+}
+
+/* Stile per i link */
 a {
     color: #007bff;
     text-decoration: none;
@@ -66,38 +142,4 @@ a {
 
 a:hover {
     text-decoration: underline;
-}
-
-/* Modificato lo stile per rendere la classe .card visivamente simile a una card */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-    /* Center alignment */
-}
-
-.card {
-    flex: 1 1 calc(33.333% - 16px);
-    /* Tre card per riga con spazio tra loro */
-    max-width: calc(33.333% - 16px);
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    background-color: #fff;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Aggiunto uno stile per i div delle righe 87 e 88 */
-.sortable-header {
-    cursor: pointer;
-    font-weight: bold;
-    margin: 10px 0;
 }

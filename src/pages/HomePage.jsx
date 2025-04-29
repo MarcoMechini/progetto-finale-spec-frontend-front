@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import fetchData from '../utilities'
 import './HomePage.css';
 import { useGlobalContext } from '../context/GlobalContext';
+import AppLike from '../components/AppLike';
 
 
 export default function HomePage() {
@@ -100,7 +101,7 @@ export default function HomePage() {
                 {orderedData.map((item, index) => (
                     <div className='card' key={index}>
                         <h2>{item.title}</h2>
-                        <div className='like' onClick={() => handleLike(item.id)}>❤️</div>
+                        <AppLike id={item.id}></AppLike>
                         <p>Categoria: {item.category}</p>
                         <Link to={`/detail/${item.id}`}>Dettagli</Link>
                     </div>
