@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import fetchData from '../utilities'
 import './HomePage.css';
 import AppLike from '../components/AppLike';
+import { useGlobalContext } from '../context/GlobalContext';
 
 
 export default function HomePage() {
     const [searchInput, setSearchInput] = useState('')
     const [boxInput, setBoxInput] = useState([])
-    const [data, setData] = useState([])
+    const { data, setData } = useGlobalContext()
     const [sortOrder, setSortOrder] = useState(1)
     const [sortBy, setSortBy] = useState('title')
 

@@ -10,6 +10,7 @@
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
+    overflow-y: auto;
 }
 
 .sidebar.visible {
@@ -29,4 +30,34 @@
 
 .sidebar.visible+.overlay {
     display: block;
+}
+
+.side-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 0.9rem;
+    /* Smaller font size */
+}
+
+.side-row h2 {
+    margin: 0;
+    font-size: 1rem;
+    /* Adjust title size */
+}
+
+.side-row p {
+    margin: 0;
+    font-size: 0.8rem;
+    /* Adjust category size */
+}
+
+.side-row .app-like {
+    margin-left: auto;
+    /* Push the heart icon to the right */
 }

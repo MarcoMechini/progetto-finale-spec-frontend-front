@@ -6,10 +6,12 @@ const GlobalContext = createContext();
 function GlobalProvider({ children }) {
     const [like, handleLike] = useLike();
     const [sideVisible, setSideVisible] = useState(false);
+    const [data, setData] = useState([])
 
     const globalProviderValue = {
         like, handleLike, // Like state and function
         sideVisible, setSideVisible, // Sidebar visibility state and function
+        data, setData
     };
 
     return (
