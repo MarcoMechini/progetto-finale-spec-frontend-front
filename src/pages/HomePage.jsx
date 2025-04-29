@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import fetchData from '../utilities'
 import './HomePage.css';
-import { useGlobalContext } from '../context/GlobalContext';
 import AppLike from '../components/AppLike';
 
 
@@ -12,7 +11,6 @@ export default function HomePage() {
     const [data, setData] = useState([])
     const [sortOrder, setSortOrder] = useState(1)
     const [sortBy, setSortBy] = useState('title')
-    const { like, handleLike } = useGlobalContext()
 
     const allCategory = useMemo(() => {
         const categorys = []

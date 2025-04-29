@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './DetailPage.css';
 import fetchData from '../utilities';
-import { useGlobalContext } from '../context/GlobalContext';
 import AppLike from '../components/AppLike';
 
 export default function DetailPage() {

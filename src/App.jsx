@@ -2,30 +2,19 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
 import { GlobalProvider } from './context/GlobalContext';
+import AppLayout from './layout/AppLayout';
 
 
 function App() {
   return (
     <GlobalProvider>
       <BrowserRouter>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/detail">detail</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <Routes>
+        <Routes>
+          <Route element={<AppLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/detail/:id" element={<DetailPage />} />
-
-          </Routes>
-        </div>
+          </Route>
+        </Routes>
       </BrowserRouter>
     </GlobalProvider>
   );
