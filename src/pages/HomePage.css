@@ -1,20 +1,8 @@
-/* HomePage.css - Nuovo stile */
-
-/* Stile generale */
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f4f8;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
 /* Stile per l'input di ricerca */
 input[type="ricerca"] {
     width: 100%;
     max-width: 400px;
     padding: 12px;
-    margin: 20px auto;
     display: block;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -23,15 +11,14 @@ input[type="ricerca"] {
 }
 
 /* Stile per il form delle categorie */
-form {
-    display: flex;
+.home-filter-checkbox {
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
     margin: 20px 0;
 }
 
-form div {
+.home-filter-checkbox div {
     display: flex;
     align-items: center;
     background-color: #fff;
@@ -40,10 +27,29 @@ form div {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-form label {
+.home-filter-checkbox label {
     margin-right: 8px;
     font-weight: 500;
     color: #555;
+}
+
+
+/* Aggiunto stile per la classe 'home-filter' */
+.home-filter {
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Aggiunto stile per l'icona con background */
+.home-filter .fa-filter {
+    color: #fff;
+    background-color: #007bff;
+    padding: 5px;
+    border-radius: 20%;
+    cursor: pointer;
 }
 
 /* Stile per i titoli ordinabili */
@@ -55,7 +61,6 @@ form label {
     background-color: #007bff;
     color: #fff;
     border-radius: 8px;
-    margin: 10px auto;
     max-width: 200px;
     transition: background-color 0.3s;
 }
@@ -84,6 +89,7 @@ form label {
     padding: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
     text-align: center;
+    position: relative;
 }
 
 .card:hover {
@@ -114,6 +120,20 @@ form label {
     color: #d62828;
 }
 
+/* Stile per posizionare l'icona nell'angolo in alto a destra della card */
+.card .icon-top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.2rem;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.card .icon-top-right:hover {
+    color: #0056b3;
+}
+
 /* Animazione per il like */
 @keyframes like-animation {
     0% {
@@ -133,32 +153,26 @@ form label {
     animation: like-animation 0.3s ease-in-out;
 }
 
-/* Stile per i link */
-a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
+
+
+
+.home-comparator {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 12px;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
-/* Aggiunto stile per la classe 'home-filter' */
-.home-filter {
+.home-comparator-header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-/* Aggiunto stile per l'icona con background */
-.home-filter .fa-filter {
-    color: #fff;
-    background-color: #007bff;
-    padding: 5px;
-    border-radius: 20%;
-    cursor: pointer;
+.home-comparator>div {
+    width: fit-content
 }
+
 
 .close-comparator-button {
     border: none;
@@ -166,7 +180,7 @@ a:hover {
     font-weight: bold;
     cursor: pointer;
     color: #000;
-    /* White color for the X */
+    background-color: transparent;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -174,5 +188,279 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Stile per la sezione home-comparator-container */
+.home-comparator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.home-comparator-container h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.home-comparator {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+}
+
+.home-comparator>div {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.home-comparator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.home-comparator-header h2 {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+}
+
+.close-comparator-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.close-comparator-button:hover {
+    background-color: #ff1a1a;
+}
+
+.home-comparator div p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+/* Stile per la sezione section-comparator */
+.section-comparator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f8ff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section-comparator select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-comparator select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.section-comparator h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.section-comparator .home-comparator {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+}
+
+.section-comparator .home-comparator>div {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.section-comparator .home-comparator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.section-comparator .home-comparator-header h2 {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+}
+
+.section-comparator .close-comparator-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.section-comparator .close-comparator-button:hover {
+    background-color: #ff1a1a;
+}
+
+.section-comparator .home-comparator div p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+/* Stile per il bottone in posizione fissa in basso a destra */
+.fixed-bottom-right-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+.fixed-bottom-right-button:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per il modal comparator */
+.modal-comparator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1050;
+    width: 90%;
+    max-width: 500px;
+    display: none;
+    /* Inizialmente nascosto */
+}
+
+.modal-comparator-select {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.modal-comparator.active {
+    display: block;
+    /* Mostra il modal quando attivo */
+}
+
+.modal-comparator h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.modal-comparator select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.modal-comparator select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.modal-comparator .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-comparator .modal-actions button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-comparator .modal-actions .btn-close {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.modal-comparator .modal-actions .btn-close:hover {
+    background-color: #ff1a1a;
+}
+
+.modal-comparator .modal-actions .btn-confirm {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-comparator .modal-actions .btn-confirm:hover {
+    background-color: #0056b3;
 }

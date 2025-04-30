@@ -1,3 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile generale */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-flex {
+    display: flex;
+}
+
+/* Stile per i link */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 /* Stile aggiornato per la nav bar */
 nav {
     background-color: #333;
