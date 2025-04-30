@@ -3,16 +3,16 @@ import './AppSidebar.css';
 import AppLike from '../components/AppLike';
 
 export default function AppSidebar() {
-    const { like, data, sideVisible, setSideVisible } = useGlobalContext();
+    const { like, fruits, sideVisible, setSideVisible } = useGlobalContext();
 
-    const preferiti = data.filter((item) => {
+    const preferiti = fruits.filter((item) => {
         return (like.includes(item.id))
     })
 
     return (<>
         <div>
             <div className={`sidebar ${sideVisible ? "visible" : ""}`}>
-                <button onClick={() => setSideVisible(false)}>Close</button>
+                <button className={'close-button'} onClick={() => setSideVisible(false)}>X</button>
                 <h2>Preferiti</h2>
                 {preferiti && preferiti.map((item, index) => (
                     <div className='side-row' key={index}>

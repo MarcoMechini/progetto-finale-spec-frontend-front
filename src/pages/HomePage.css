@@ -143,3 +143,19 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* Aggiunto stile per la classe 'home-filter' */
+.home-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Aggiunto stile per l'icona con background */
+.home-filter .fa-filter {
+    color: #fff;
+    background-color: #007bff;
+    padding: 5px;
+    border-radius: 20%;
+    cursor: pointer;
+}
