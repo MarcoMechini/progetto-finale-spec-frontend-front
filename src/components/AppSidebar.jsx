@@ -12,7 +12,7 @@ export default function AppSidebar() {
     return (<>
         <div>
             <div className={`sidebar ${sideVisible ? "visible" : ""}`}>
-                <button className={'close-button'} onClick={() => setSideVisible(false)}>X</button>
+                <button className={'close-sidebar-button'} onClick={() => setSideVisible(false)}>X</button>
                 <h2>Preferiti</h2>
                 {preferiti && preferiti.map((item, index) => (
                     <div className='side-row' key={index}>

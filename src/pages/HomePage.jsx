@@ -5,6 +5,7 @@ import AppLike from '../components/AppLike';
 import { useGlobalContext } from '../context/GlobalContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown, faFilter } from '@fortawesome/free-solid-svg-icons';
+import fetchData from '../utilities';
 
 
 export default function HomePage() {
@@ -56,12 +57,13 @@ export default function HomePage() {
         return result
     }, [fruits, searchInput, boxInput, sortBy, sortOrder])
 
-    const addElemComp = (e) => {
+    const addElemComp = async (e) => {
         const selectedValue = parseInt(e.target.value)
         if (selectedValue) {
             const selectedItem = fruits.find(item => item.id === selectedValue)
             if (selectedItem && !elemDaConfrontare.some(item => item.id === selectedItem.id)) {
-                setElemDaConfrontare(prev => [...prev, selectedItem])
+                const response = await fetchData(`http://localhost:3001/fruits/${selectedItem.id}`)
+                setElemDaConfrontare(prev => [...prev, response.fruit])
             }
         }
     }
@@ -75,6 +77,7 @@ export default function HomePage() {
     return (
         <>
             <section className='product-list'>
+
                 <div className='home-filter'>
                     <input type="ricerca" placeholder='cerca per nome' name='search' value={searchInput} onChange={e => setSearchInput(e.target.value)} />
                     {/* aggiungi funzione per mostrare i filtri */}
@@ -119,15 +122,15 @@ export default function HomePage() {
                     {elemDaConfrontare && elemDaConfrontare.map((item, index) => {
                         return (
                             <div key={index}>
+                                <button className={'close-comparator-button '} onClick={() => setElemDaConfrontare(prev => prev.filter(elem => elem.id !== item.id))}>X</button>
                                 <h2>{item.title}</h2>
-                                {item.nutritionalValues ? 'ci sono' : 'non ci sono'} valori nutrizionali
-                                {/* {item.nutritionalValues && item.nutritionalValues.map((nutrient, index) => {
+                                {item.nutritionalValues && item.nutritionalValues.map((nutrient, index) => {
                                     return (
                                         <div key={index}>
                                             <p>{nutrient.name}: {nutrient.quantity} {nutrient.unit}</p>
                                         </div>
                                     )
-                                })} */}
+                                })}
                             </div>
                         )
                     })}
