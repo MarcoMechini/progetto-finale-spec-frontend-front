@@ -1,0 +1,82 @@
+/* Stile per il modal comparator */
+.modal-comparator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1050;
+    width: 90%;
+    max-width: 500px;
+    display: none;
+    /* Inizialmente nascosto */
+}
+
+.modal-comparator-select {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.modal-comparator.active {
+    display: block;
+    /* Mostra il modal quando attivo */
+}
+
+.modal-comparator h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.modal-comparator select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.modal-comparator select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.modal-comparator .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-comparator .modal-actions button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-comparator .modal-actions .btn-close {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.modal-comparator .modal-actions .btn-close:hover {
+    background-color: #ff1a1a;
+}
+
+.modal-comparator .modal-actions .btn-confirm {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-comparator .modal-actions .btn-confirm:hover {
+    background-color: #0056b3;
+}

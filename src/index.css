@@ -60,3 +60,7 @@ nav ul li a {
 nav ul li a:hover {
     color: #ff6347;
 }
+
+.isBest {
+    background-color: rgba(0, 255, 0, .5);
+}

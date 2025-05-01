@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './HomePage.css';
 import AppLike from '../components/AppLike';
@@ -6,19 +6,8 @@ import { useGlobalContext } from '../context/GlobalContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import fetchData from '../utilities';
+import Comparator from '../components/Comparator';
 
-function SelectComparator({ fruits, setElemConf }) {
-    return (
-        <select name="fruits" id="fruits" onChange={setElemConf}>
-            <option value="">Seleziona frutto</option>
-            {fruits && fruits.map(curFruits => {
-                return (
-                    <option key={curFruits.id} value={curFruits.id}>{curFruits.title}</option>
-                )
-            }
-            )}
-        </select>)
-}
 
 export default function HomePage() {
     const { fruits, allCategory } = useGlobalContext()
@@ -29,11 +18,8 @@ export default function HomePage() {
     const [sortBy, setSortBy] = useState('title')
     const [elemDaConfrontare, setElemDaConfrontare] = useState([])
     const [filters, setFilters] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const toggleModal = () => {
-        setIsModalOpen(prev => !prev);
-    };
+    const comparatorRef = useRef(null)
 
     const handleSort = (e) => {
         e.preventDefault()
@@ -83,30 +69,9 @@ export default function HomePage() {
                 setElemDaConfrontare(prev => [...prev, response.fruit])
             }
         }
-    }
-
-    const setElemConf = async e => {
-        // const selectedValue = parseInt(e.target.value)
-        // if (selectedValue) {
-        //     const selectedItem = fruits.find(item => item.id === selectedValue)
-        //     if (selectedItem && !elemDaConfrontare.some(item => item.id === selectedItem.id)) {
-        //         setElemDaConfrontare(prev => [...prev, selectedItem])
-        //     }
-        // }
-    }
-
-    const handleConfirm = async () => {
-        // if (elemDaConfrontare.length === 2) {
-        //     console.log(elemDaConfrontare);
-
-        //     const data = elemDaConfrontare.map(item => {
-        //         return fetchData(`http://localhost:3001/fruits/${item.id}`)
-        //     })
-        //     const response = await Promise.all(data)
-        //     console.log(response);
-        //     setElemDaConfrontare(response.map(item => item.fruit))
-        // }
-        // setElemDaConfrontare([])
+        if (elemDaConfrontare.length > 0) {
+            comparatorRef.current.focus()
+        }
     }
 
     const handleBoxInput = e => {
@@ -148,48 +113,21 @@ export default function HomePage() {
                     ))}</section>
             </section>
 
-            <section className='section-comparator'>
-                <div className='home-comparator-container'>
-                    <div className='home-comparator'>
-                        {elemDaConfrontare && elemDaConfrontare.map((item, index) => {
-                            return (
-                                <div key={index}>
-                                    <div className='home-comparator-header'>
-                                        <h2>{item.title}</h2>
-                                        <button className={'close-comparator-button '} onClick={() => setElemDaConfrontare(prev => prev.filter(elem => elem.id !== item.id))}>X</button>
-                                    </div>
-                                    {item.nutritionalValues && item.nutritionalValues.map((nutrient, index) => {
-                                        return (
-                                            <div key={index}>
-                                                <p>{nutrient.name}: {nutrient.quantity} {nutrient.unit}</p>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            )
-                        })}
+            {/* COMPARATORE */}
+            {elemDaConfrontare.length > 0 &&
+                <section ref={comparatorRef} className='section-comparator' tabIndex={0}>
+                    <div className='home-comparator-container'>
+                        <div className='home-comparator'>
+                            <Comparator elemDaConfrontare={elemDaConfrontare} setElemDaConfrontare={setElemDaConfrontare} />
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            }
 
             {/* Bottone per aprire il modal */}
-            <button className="fixed-bottom-right-button" onClick={toggleModal}>
-                +
-            </button>
 
             {/* Modal Comparator */}
-            <div className={`modal-comparator ${isModalOpen ? 'active' : ''}`}>
-                <h4>Confronta i frutti</h4>
-                <div className="modal-comparator-select">
-                    <SelectComparator fruits={fruits} setElemConf={setElemConf}></SelectComparator>
-                    <SelectComparator fruits={fruits}></SelectComparator>
-                </div>
 
-                <div className="modal-actions">
-                    <button className="btn-close" onClick={toggleModal}>Chiudi</button>
-                    <button className="btn-confirm" onClick={handleConfirm}>Conferma</button>
-                </div>
-            </div>
         </>
     )
 }
