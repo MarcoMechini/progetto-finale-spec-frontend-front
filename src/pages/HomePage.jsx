@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './HomePage.css';
 import AppLike from '../components/AppLike';
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
 import fetchData from '../utilities';
 import Comparator from '../components/Comparator';
+import debounce from 'lodash/debounce';
 
 
 export default function HomePage() {
@@ -74,9 +75,11 @@ export default function HomePage() {
         }
     }
 
-    const handleBoxInput = e => {
+    const handleBoxInput = useCallback(debounce((e) => {
         setBoxInput(prev => prev.includes(e.target.value) ? prev.filter(item => item !== e.target.value) : [...prev, e.target.value])
-    }
+    }, 300), [])
+
+    const handleInput = useCallback(debounce(setSearchInput, 300), [])
 
     const arrow = (sortOrder === -1 ? <FontAwesomeIcon icon={faArrowUp} /> : <FontAwesomeIcon icon={faArrowDown} />);
 
@@ -85,7 +88,7 @@ export default function HomePage() {
             <section className='product-list'>
                 {/* SEARCH E ORDINAMENTO */}
                 <div className='home-filter'>
-                    <input type="ricerca" placeholder='cerca per nome' name='search' value={searchInput} onChange={e => setSearchInput(e.target.value)} />
+                    <input type="ricerca" placeholder='cerca per nome' name='search' onChange={e => handleInput(e.target.value)} />
                     {/* aggiungi funzione per mostrare i filtri */}
                     <div><FontAwesomeIcon icon={faFilter} onClick={() => { setFilters(prev => !prev) }} /></div>
                     <div data-value='category' className="sortable-header" onClick={handleSort}>category {sortBy === 'category' ? arrow : ''}</div>

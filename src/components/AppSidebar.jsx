@@ -14,6 +14,7 @@ export default function AppSidebar() {
             <div className={`sidebar ${sideVisible ? "visible" : ""}`}>
                 <button className={'close-sidebar-button'} onClick={() => setSideVisible(false)}>X</button>
                 <h2>Preferiti</h2>
+                {preferiti.length < 1 && <p>Non hai ancora aggiunto nulla ai preferiti</p>}
                 {preferiti && preferiti.map((item, index) => (
                     <div className='side-row' key={index}>
                         <h2>{item.title}</h2>
