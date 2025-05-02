@@ -66,8 +66,12 @@ export default function HomePage() {
         if (selectedValue) {
             const selectedItem = fruits.find(item => item.id === selectedValue)
             if (selectedItem && !elemDaConfrontare.some(item => item.id === selectedItem.id)) {
-                const response = await fetchData(`http://localhost:3001/fruits/${selectedItem.id}`)
-                setElemDaConfrontare(prev => [...prev, response.fruit])
+                try {
+                    const response = await fetchData(`http://localhost:3001/fruits/${selectedItem.id}`)
+                    setElemDaConfrontare(prev => [...prev, response.fruit])
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
             }
         }
         if (elemDaConfrontare.length > 0) {
@@ -105,6 +109,7 @@ export default function HomePage() {
                 </form>
 
                 <section className='card-container' style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                    {orderedData.length === 0 && <h2>Nessun risultato trovato</h2>}
                     {orderedData.map((item, index) => (
                         <div className='card' key={index}>
                             <h2>{item.title}</h2>
