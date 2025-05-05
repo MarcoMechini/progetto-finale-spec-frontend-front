@@ -133,11 +133,6 @@ export default function HomePage() {
                     </div>
                 </section>
             }
-
-            {/* Bottone per aprire il modal */}
-
-            {/* Modal Comparator */}
-
         </>
     )
 }

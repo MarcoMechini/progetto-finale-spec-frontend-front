@@ -91,3 +91,32 @@ a:hover {
 .nutritionalValues span:last-child {
     color: #333;
 }
+
+.detail-icon-top-right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.detail-icon-top-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
