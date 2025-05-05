@@ -19,8 +19,6 @@ export default function DetailPage() {
 
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
-        console.log(formData);
-
         if (index === undefined) {
             setFormData({ ...formData, [name]: value });
         } else {
@@ -49,24 +47,32 @@ export default function DetailPage() {
     }
 
     //al modify far vedere elemento modificato
-    const handleModify = useCallback(debounce((id) => {
-        // setFormData(fruitData)
-        // setModalBool(prev => !prev)
-        putFruits(id);
+    const handleModify = useCallback(debounce((id, formData) => {
+        setFruitData(formData)
+        setModalBool(false)
+        try {
+            putFruits(id, formData);
+        } catch (error) {
+            console.error(error);
+        }
+
     }, 250), []);
 
     useEffect(() => {
         getData()
     }, [id])
 
+    useEffect(() => {
+        setFormData(fruitData);
+    }, [fruitData]);
 
     return (
         <>
+            <button onClick={() => console.log('formdata', formData)}>Prova</button>
             <section className='card'>
                 <h1>{fruitData.title}</h1>
                 <AppLike id={parseInt(id)}></AppLike>
-
-                <FontAwesomeIcon className='detail-icon-top-right' icon={faPen} onClick={() => handleModify(id)} />
+                <FontAwesomeIcon className='detail-icon-top-right' icon={faPen} onClick={() => setModalBool(prev => !prev)} />
                 <div>{fruitData.category}</div>
                 <div>Calorie: {fruitData.calories}</div>
                 {fruitData.nutritionalValues && fruitData.nutritionalValues.map((item, index) => {
@@ -90,7 +96,7 @@ export default function DetailPage() {
                 onClose={() => setModalBool(false)}
                 addBtn={<button onClick={addRowFormData}>+</button>}
                 onConfirm={() => {
-                    handleModify(formData);
+                    handleModify(id, formData);
                     setModalBool(false);
                 }}
                 content={

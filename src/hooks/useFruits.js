@@ -32,7 +32,6 @@ export default function useFruits() {
             method: 'DELETE'
         })
         if (response) {
-            console.log('frutto con eliminato: ', id);
             setFruits(prev => prev.filter(item => item.id !== id))
         }
         if (!response.ok) {
@@ -57,18 +56,34 @@ export default function useFruits() {
         }
     }
 
-    const putFruits = async (id) => {
-        console.log('putFruits', id);
+    const putFruits = async (id, data, setFruitData) => {
+        try {
+            const requestOptions = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "title": data.title,
+                    "calories": parseInt(data.calories),
+                    "category": data.category,
+                    "nutritionalValues": data.nutritionalValues
+                })
+            };
+            const response = await fetch(`http://localhost:3001/fruits/${id}`, requestOptions);
 
-        // const requestOptions = {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ title: 'Fetch PUT Request Example' })
-        // };
-        // fetch(`http://localhost:3001/fruits/${id}`, requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => element.innerHTML = data.updatedAt );
-    }
+            if (!response.ok) {
+                const errorDetails = await response.json();
+                console.error("Error details:", errorDetails);
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+
+            const updatedFruit = await response.json();
+
+            // Aggiorna lo stato locale
+            setFruits(prev => prev.map(fruit => fruit.id === id ? updatedFruit : fruit));
+        } catch (error) {
+            console.error("Error updating data:", error.message);
+        }
+    };
 
     const allCategory = useMemo(() => {
         const categorys = []
@@ -79,7 +94,6 @@ export default function useFruits() {
         })
         return categorys
     }, [fruits])
-
 
     return [fruits, setFruits, getFruits, getSingleFruit, deleteFruits, addFruits, putFruits, allCategory];
 }

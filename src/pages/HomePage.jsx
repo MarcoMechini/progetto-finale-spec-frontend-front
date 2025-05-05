@@ -157,8 +157,22 @@ export default function HomePage() {
     }, 300), [])
 
     const handleInput = useCallback(debounce(setSearchInput, 300), [])
-    const handleCreate = useCallback(debounce(addFruits, 250), [])
-    const handleDelete = useCallback(debounce(deleteFruits, 250), [])
+    const handleCreate = useCallback(debounce(data => {
+        try {
+            addFruits(data)
+        } catch (err) {
+            console.error(err);
+        }
+    }
+        , 250), [])
+    const handleDelete = useCallback(debounce(id => {
+        try {
+            deleteFruits(id)
+        } catch (error) {
+            console.error(error);
+
+        }
+    }, 250), [])
 
     const arrow = (sortOrder === -1 ? <FontAwesomeIcon icon={faArrowUp} /> : <FontAwesomeIcon icon={faArrowDown} />);
 
