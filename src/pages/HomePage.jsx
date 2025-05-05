@@ -5,13 +5,12 @@ import AppLike from '../components/AppLike';
 import { useGlobalContext } from '../context/GlobalContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
-import fetchData from '../utilities';
 import Comparator from '../components/Comparator';
 import debounce from 'lodash/debounce';
 
 
 export default function HomePage() {
-    const { fruits, allCategory } = useGlobalContext()
+    const { fruits, allCategory, getSingleFruit } = useGlobalContext()
 
     const [searchInput, setSearchInput] = useState('')
     const [boxInput, setBoxInput] = useState([])
@@ -61,14 +60,17 @@ export default function HomePage() {
         return result
     }, [fruits, searchInput, boxInput, sortBy, sortOrder])
 
-    const addElemComp = async (id) => {
+
+    //non utilizzo il debounce perche nel caso abbia già il dato non effetto la chiamata
+    async function addElemComp(id) {
         const selectedValue = parseInt(id)
+
         if (selectedValue) {
             const selectedItem = fruits.find(item => item.id === selectedValue)
             if (selectedItem && !elemDaConfrontare.some(item => item.id === selectedItem.id)) {
                 try {
-                    const response = await fetchData(`http://localhost:3001/fruits/${selectedItem.id}`)
-                    setElemDaConfrontare(prev => [...prev, response.fruit])
+                    const response = await getSingleFruit(id)
+                    setElemDaConfrontare(prev => [...prev, response])
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
