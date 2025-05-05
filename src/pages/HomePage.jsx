@@ -4,13 +4,59 @@ import './HomePage.css';
 import AppLike from '../components/AppLike';
 import { useGlobalContext } from '../context/GlobalContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faArrowDown, faFilter, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faArrowDown, faFilter, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Comparator from '../components/Comparator';
 import debounce from 'lodash/debounce';
+import AppModal from '../components/AppModal';
 
+const defaultValues = {
+    "title": "Banana",
+    "calories": 89,
+    "category": "Bacche",
+    "nutritionalValues": [
+        {
+            "name": "Carboidrati",
+            "quantity": 23,
+            "unit": "g"
+        },
+        {
+            "name": "Fibre",
+            "quantity": 2.6,
+            "unit": "g"
+        },
+        {
+            "name": "Zuccheri",
+            "quantity": 12,
+            "unit": "g"
+        },
+        {
+            "name": "Potassio",
+            "quantity": 358,
+            "unit": "mg"
+        },
+        {
+            "name": "Vitamina B6",
+            "quantity": 0.4,
+            "unit": "mg"
+        }
+    ]
+}
+
+const initialValue = {
+    "title": "",
+    "category": "",
+    "calories": 0,
+    "nutritionalValues": [
+        {
+            "name": "",
+            "quantity": 0,
+            "unit": ""
+        }
+    ]
+}
 
 export default function HomePage() {
-    const { fruits, allCategory, getSingleFruit } = useGlobalContext()
+    const { fruits, allCategory, getSingleFruit, deleteFruits, addFruits, putFruits } = useGlobalContext()
 
     const [searchInput, setSearchInput] = useState('')
     const [boxInput, setBoxInput] = useState([])
@@ -18,6 +64,8 @@ export default function HomePage() {
     const [sortBy, setSortBy] = useState('title')
     const [elemDaConfrontare, setElemDaConfrontare] = useState([])
     const [filters, setFilters] = useState(false)
+    const [modalBool, setModalBool] = useState(false)
+    const [formData, setFormData] = useState(defaultValues);
 
     const comparatorRef = useRef(null)
 
@@ -81,11 +129,36 @@ export default function HomePage() {
         }
     }
 
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        console.log(formData);
+
+        if (index === undefined) {
+            setFormData({ ...formData, [name]: value });
+        } else {
+            setFormData(prevState => ({
+                ...prevState,
+                nutritionalValues: prevState.nutritionalValues.map((item, i) =>
+                    i === index ? { ...item, [name]: value } : item
+                )
+            }))
+        }
+    }
+
+    const addRowFormData = () => {
+        setFormData(prevState => ({
+            ...prevState,
+            nutritionalValues: [...prevState.nutritionalValues, { name: "", quantity: 0, unit: "" }]
+        }))
+    }
+
     const handleBoxInput = useCallback(debounce((e) => {
         setBoxInput(prev => prev.includes(e.target.value) ? prev.filter(item => item !== e.target.value) : [...prev, e.target.value])
     }, 300), [])
 
     const handleInput = useCallback(debounce(setSearchInput, 300), [])
+    const handleCreate = useCallback(debounce(addFruits, 250), [])
+    const handleDelete = useCallback(debounce(deleteFruits, 250), [])
 
     const arrow = (sortOrder === -1 ? <FontAwesomeIcon icon={faArrowUp} /> : <FontAwesomeIcon icon={faArrowDown} />);
 
@@ -113,11 +186,12 @@ export default function HomePage() {
                 <section className='card-container' style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                     {orderedData.length === 0 && <h2>Nessun risultato trovato</h2>}
                     {orderedData.map((item, index) => (
-                        <div className='card' key={index}>
+                        <div className='card' id={item.id} key={index}>
                             <h2>{item.title}</h2>
                             <AppLike id={item.id}></AppLike>
                             <p>Categoria: {item.category}</p>
-                            <FontAwesomeIcon className="icon-top-right fas fa-info-circle" icon={faPlus} onClick={() => addElemComp(item.id)} />
+                            <FontAwesomeIcon className='home-icon-top home-icon-top-left' icon={faTrash} onClick={() => handleDelete(item.id)} />
+                            <FontAwesomeIcon className="home-icon-top home-icon-top-right " icon={faPlus} onClick={() => addElemComp(item.id)} />
                             <Link to={`/detail/${item.id}`}>Dettagli</Link>
                         </div>
                     ))}</section>
@@ -133,6 +207,39 @@ export default function HomePage() {
                     </div>
                 </section>
             }
+
+            <button onClick={() => setModalBool(prev => !prev)} className="fixed-bottom-right-button">
+                +
+            </button>
+
+            <AppModal
+                isOpen={modalBool}
+                title={<h4>Aggiungi frutto</h4>}
+                onClose={() => setModalBool(false)}
+                addBtn={<button onClick={addRowFormData}>+</button>}
+                onConfirm={() => {
+                    handleCreate(formData);
+                    setModalBool(false);
+                }}
+                content={
+                    <form>
+                        <input type='text' name="title" onChange={handleInputChange} value={formData.title} placeholder='Nome' />
+                        <input type='text' name="category" onChange={handleInputChange} value={formData.category} placeholder='Categoria' />
+                        <input type='number' name="calories" onChange={handleInputChange} value={formData.calories} placeholder='Calorie' />
+
+                        {formData.nutritionalValues && formData.nutritionalValues.map((item, index) => {
+                            return (
+                                <div className='nutritionalValues' key={index}>
+                                    <input type='text' name="name" onChange={(e) => handleInputChange(e, index)} value={item.name} placeholder='Nome' />
+                                    <input type='number' name="quantity" onChange={(e) => handleInputChange(e, index)} value={item.quantity} placeholder='Quantità' />
+                                    {/* possibilità di fare un select */}
+                                    <input type='text' name="unit" onChange={(e) => handleInputChange(e, index)} value={item.unit} placeholder='unità' />
+                                </div>
+                            )
+                        })}
+                    </form>}
+
+            />
         </>
     )
 }

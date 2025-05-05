@@ -121,16 +121,24 @@ input[type="ricerca"] {
 }
 
 /* Stile per posizionare l'icona nell'angolo in alto a destra della card */
-.card .icon-top-right {
+.card .home-icon-top-right {
+    right: 20px;
+    color: #007bff;
+}
+
+.card .home-icon-top-left {
+    color: gray;
+    left: 20px;
+}
+
+.card .home-icon-top {
     position: absolute;
     top: 20px;
-    right: 20px;
     font-size: 1.2rem;
-    color: #007bff;
     cursor: pointer;
 }
 
-.card .icon-top-right:hover {
+.card .home-icon-top-right:hover {
     color: #0056b3;
 }
 

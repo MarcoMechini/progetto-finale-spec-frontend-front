@@ -28,37 +28,33 @@ export default function useFruits() {
     }
 
     const deleteFruits = async (id) => {
-        console.log('deleteFruits', id);
-
-        // const response = await fetchData(`http://localhost:3001/fruits/${id}`, {
-        //     method: 'DELETE'
-        // })
-        // if (response) {
-        //     setFruits(prev => prev.filter(item => item.id !== id))
-        // }
-        // if (!response.ok) {
-        //     throw new Error("Error deleting data:", error)
-        // }
+        const response = await fetch(`http://localhost:3001/fruits/${id}`, {
+            method: 'DELETE'
+        })
+        if (response) {
+            console.log('frutto con eliminato: ', id);
+            setFruits(prev => prev.filter(item => item.id !== id))
+        }
+        if (!response.ok) {
+            throw new Error("Error deleting data:", response.message)
+        }
     }
 
-    const addFruits = async () => {
-        console.log('addFruits');
+    const addFruits = async (data) => {
 
-        // const response = await fetch("https://example.org/post", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         username: "example" //oggetto da inserire
-        //     }),
-        // });
-        // if (!response.ok) {
-        //     throw new Error("Network response was not ok");
-        // }
-        // if (response) {
-        //     setFruits(prev => [...prev, response])
-        // }
+        const response = await fetch("http://localhost:3001/fruits", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        if (response) {
+            setFruits(prev => [...prev, { id: prev.length + 1, ...data }])
+        }
     }
 
     const putFruits = async (id) => {
@@ -69,7 +65,7 @@ export default function useFruits() {
         //     headers: { 'Content-Type': 'application/json' },
         //     body: JSON.stringify({ title: 'Fetch PUT Request Example' })
         // };
-        // fetch('https://reqres.in/api/articles/1', requestOptions)
+        // fetch(`http://localhost:3001/fruits/${id}`, requestOptions)
         //     .then(response => response.json())
         //     .then(data => element.innerHTML = data.updatedAt );
     }

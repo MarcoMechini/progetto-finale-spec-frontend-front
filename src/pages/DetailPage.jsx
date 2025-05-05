@@ -6,26 +6,16 @@ import AppModal from '../components/AppModal';
 import { useGlobalContext } from '../context/GlobalContext';
 import { debounce } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 export default function DetailPage() {
 
     const { id } = useParams()
-    const { getSingleFruit, deleteFruits, addFruits, putFruits } = useGlobalContext()
+    const { getSingleFruit, putFruits } = useGlobalContext()
+
     const [fruitData, setFruitData] = useState({})
     const [modalBool, setModalBool] = useState(false)
-    const [formData, setFormData] = useState({
-        title: "",
-        category: "",
-        calories: 0,
-        nutritionalValues: [
-            {
-                name: "",
-                quantity: 0,
-                unit: ""
-            }
-        ]
-    });
+    const [formData, setFormData] = useState({});
 
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
@@ -58,12 +48,12 @@ export default function DetailPage() {
         }
     }
 
-    //al delete riportare utente sulla home page
-    const handleDelete = useCallback(debounce(deleteFruits, 250), [])
-    // al create far vedere elemento creato
-    const handleCreate = useCallback(debounce(addFruits, 250), [])
     //al modify far vedere elemento modificato
-    const handleModify = useCallback(debounce(putFruits, 250), [])
+    const handleModify = useCallback(debounce((id) => {
+        // setFormData(fruitData)
+        // setModalBool(prev => !prev)
+        putFruits(id);
+    }, 250), []);
 
     useEffect(() => {
         getData()
@@ -75,7 +65,7 @@ export default function DetailPage() {
             <section className='card'>
                 <h1>{fruitData.title}</h1>
                 <AppLike id={parseInt(id)}></AppLike>
-                <FontAwesomeIcon className='detail-icon-top-left' icon={faTrash} onClick={() => handleDelete(id)} />
+
                 <FontAwesomeIcon className='detail-icon-top-right' icon={faPen} onClick={() => handleModify(id)} />
                 <div>{fruitData.category}</div>
                 <div>Calorie: {fruitData.calories}</div>
@@ -96,8 +86,13 @@ export default function DetailPage() {
 
             <AppModal
                 isOpen={modalBool}
+                title={<h4>Modifica frutto</h4>}
                 onClose={() => setModalBool(false)}
                 addBtn={<button onClick={addRowFormData}>+</button>}
+                onConfirm={() => {
+                    handleModify(formData);
+                    setModalBool(false);
+                }}
                 content={
                     <form>
                         <input type='text' name="title" onChange={handleInputChange} value={formData.title} placeholder='Nome' />
