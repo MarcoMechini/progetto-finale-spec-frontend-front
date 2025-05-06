@@ -68,7 +68,6 @@ export default function DetailPage() {
 
     return (
         <>
-            <button onClick={() => console.log('formdata', formData)}>Prova</button>
             <section className='card'>
                 <h1>{fruitData.title}</h1>
                 <AppLike id={parseInt(id)}></AppLike>

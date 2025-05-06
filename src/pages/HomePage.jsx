@@ -56,7 +56,7 @@ const initialValue = {
 }
 
 export default function HomePage() {
-    const { fruits, allCategory, getSingleFruit, deleteFruits, addFruits, putFruits } = useGlobalContext()
+    const { fruits, allCategory, getSingleFruit, deleteFruits, addFruits } = useGlobalContext()
 
     const [searchInput, setSearchInput] = useState('')
     const [boxInput, setBoxInput] = useState([])
@@ -65,7 +65,7 @@ export default function HomePage() {
     const [elemDaConfrontare, setElemDaConfrontare] = useState([])
     const [filters, setFilters] = useState(false)
     const [modalBool, setModalBool] = useState(false)
-    const [formData, setFormData] = useState(defaultValues);
+    const [formData, setFormData] = useState(initialValue);
 
     const comparatorRef = useRef(null)
 
@@ -86,8 +86,7 @@ export default function HomePage() {
         if (searchInput.trim()) {
             result = result.filter((item) => item.title.toLowerCase().includes(searchInput.toLowerCase()))
         }
-
-        if (boxInput.length > 0) {
+        if ((!boxInput.includes('Tutti')) && boxInput.length > 0) {
             result = result.filter((item) => boxInput.includes(item.category))
         }
 
@@ -189,6 +188,10 @@ export default function HomePage() {
                 </div>
                 {/* CHECKBOX PER FILTRARE PER CATEGORIA */}
                 <form className={`${(!filters ? 'd-none' : 'd-flex')} home-filter-checkbox`}>
+                    <div>
+                        <label>Tutti</label>
+                        <input type="checkbox" name='checkbox' value='Tutti' onChange={handleBoxInput} />
+                    </div>
                     {allCategory.map((item, index) => (
                         <div key={index}>
                             <label>{item}</label>
@@ -214,6 +217,12 @@ export default function HomePage() {
             {/* COMPARATORE */}
             {elemDaConfrontare.length > 0 &&
                 <section ref={comparatorRef} className='section-comparator' tabIndex={0}>
+                    <button
+                        className="close-comparator-button"
+                        onClick={() => setElemDaConfrontare([])}
+                    >
+                        X
+                    </button>
                     <div className='home-comparator-container'>
                         <div className='home-comparator'>
                             <Comparator elemDaConfrontare={elemDaConfrontare} setElemDaConfrontare={setElemDaConfrontare} />
