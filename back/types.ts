@@ -5,15 +5,15 @@
 
 
 type NutritionalValue = {
-    name: string; // "Carboidrati"
-    quantity: number; // Quantità del nutriente
-    unit: string;   // g
-  };
-  
-  export type Fruit = {
+  name: string; // "Carboidrati"
+  quantity: number; // Quantità del nutriente
+  unit: string;   // g
+};
 
-    title: string;
-    calories: number; // Calorie per 100g
-    category: string; // "Agrume"
-    nutritionalValues: NutritionalValue[]; // Un array di valori nutrizionali
-  };
+export type Fruit = {
+
+  readonly title: string;
+  readonly calories: number; // Calorie per 100g
+  readonly category: string; // "Agrume"
+  nutritionalValues: NutritionalValue[]; // Un array di valori nutrizionali
+};
