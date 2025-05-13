@@ -1,12 +1,54 @@
-# React + Vite
+# Healthy Bites
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Healthy Bites è un'applicazione web interattiva per la gestione e l'analisi dei dati nutrizionali della frutta. Consente agli utenti di cercare, filtrare, ordinare e confrontare frutti, oltre ad aggiungere nuovi dati nutrizionali personalizzati.
 
-Currently, two official plugins are available:
+## Funzionalità principali
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Ricerca e filtro**: Cerca i frutti per nome e filtra per categoria.
+- **Ordinamento**: Ordina i frutti per titolo o categoria.
+- **Gestione dei dati**: Aggiungi nuovi frutti con informazioni nutrizionali personalizzate.
+- **Confronto**: Confronta più frutti per analisi comparative.
+- **Interfaccia intuitiva**: Design moderno e facile da usare.
 
-## Expanding the ESLint configuration
+## Tecnologie utilizzate
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React**: Libreria per la creazione dell'interfaccia utente.
+- **Vite**: Tool per il build e lo sviluppo rapido.
+- **Lodash**: Per ottimizzare le interazioni con debounce.
+- **React Router**: Per la navigazione tra le pagine.
+- **FontAwesome**: Per le icone.
+
+## Installazione
+
+1. Clona il repository:
+   ```bash
+   git clone <URL-del-repository>
+   ```
+
+2. Naviga nella directory del progetto:
+   ```bash
+   cd progetto-finale-spec-frontend-front
+   ```
+
+3. Installa le dipendenze:
+   ```bash
+   npm install
+   ```
+
+4. Avvia l'applicazione in modalità sviluppo:
+   ```bash
+   npm run dev
+   ```
+
+5. Apri il browser e vai su `http://localhost:5173`.
+
+## Struttura del progetto
+
+- **src/**: Contiene il codice sorgente dell'applicazione.
+  - **components/**: Componenti riutilizzabili come `AppLike`, `AppModal`, e `Comparator`.
+  - **context/**: Contesto globale per la gestione dello stato.
+  - **pages/**: Pagine principali come `HomePage` e `DetailPage`.
+  - **hooks/**: Custom hooks come `useFruits`.
+  - **layout/**: Layout generale dell'app.
+- **public/**: File statici.
+- **back/**: Dati di esempio e tipi TypeScript.

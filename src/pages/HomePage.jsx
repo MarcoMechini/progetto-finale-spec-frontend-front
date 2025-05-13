@@ -180,7 +180,7 @@ export default function HomePage() {
             <section className='product-list'>
                 {/* SEARCH E ORDINAMENTO */}
                 <div className='home-filter'>
-                    <input type="ricerca" placeholder='cerca per nome' name='search' onChange={e => handleInput(e.target.value)} />
+                    <input type="ricerca" placeholder='cerca per nome' name='search' autoComplete='off' onChange={e => handleInput(e.target.value)} />
                     {/* aggiungi funzione per mostrare i filtri */}
                     <div><FontAwesomeIcon icon={faFilter} onClick={() => { setFilters(prev => !prev) }} /></div>
                     <div data-value='category' className="sortable-header" onClick={handleSort}>category {sortBy === 'category' ? arrow : ''}</div>
