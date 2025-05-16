@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import fetchData from "../utilities";
+import fruit from "../../back/fruit.js"
 
 export default function useFruits() {
 
@@ -13,32 +14,35 @@ export default function useFruits() {
 
     const getFruits = async () => {
         try {
-            const response = await fetchData(`${api}/fruits`)
-            setFruits(response)
+            // const response = await fetchData(`${api}/fruits`)
+            setFruits(fruit)
         } catch (error) {
             console.error("Error fetching data:", error)
         }
     }
 
     const getSingleFruit = async (id) => {
+        const idToFind = parseInt(id)
+        // const response = await fetchData(`${api}/fruits/${id}`)
+        const response = fruits.find(item => item.id === idToFind)
 
-        const response = await fetchData(`${api}/fruits/${id}`)
-
-        if (!response.success) {
-            throw new Error("Error fetching single data:", error)
+        if (response === undefined) {
+            throw new Error("Error fetching single data:")
         }
-        return response.fruit
+        return response
     }
 
     const deleteFruits = async (id) => {
-        const response = await fetch(`${api}/fruits/${id}`, {
-            method: 'DELETE'
-        })
+        const idToFind = parseInt(id);
+        const response = fruits.find(fruit => fruit.id === idToFind);
+
+        console.log(response);
+
         if (response) {
             setFruits(prev => prev.filter(item => item.id !== id))
         }
-        if (!response.ok) {
-            throw new Error("Error deleting data:", response.message)
+        if (!response) {
+            throw new Error("Error deleting data:", response)
         }
     }
 
