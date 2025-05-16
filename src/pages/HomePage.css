@@ -1,3 +1,7 @@
+.product-list {
+    background-image: url('/immagine-gocce.png');
+}
+
 /* Stile per l'input di ricerca */
 input[type="ricerca"] {
     width: 100%;

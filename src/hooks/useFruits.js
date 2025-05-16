@@ -5,13 +5,15 @@ export default function useFruits() {
 
     const [fruits, setFruits] = useState([])
 
+    const api = "http://localhost:3001"
+
     useEffect(() => {
         getFruits()
     }, [])
 
     const getFruits = async () => {
         try {
-            const response = await fetchData('http://localhost:3001/fruits')
+            const response = await fetchData(`${api}/fruits`)
             setFruits(response)
         } catch (error) {
             console.error("Error fetching data:", error)
@@ -20,7 +22,7 @@ export default function useFruits() {
 
     const getSingleFruit = async (id) => {
 
-        const response = await fetchData(`http://localhost:3001/fruits/${id}`)
+        const response = await fetchData(`${api}/fruits/${id}`)
 
         if (!response.success) {
             throw new Error("Error fetching single data:", error)
@@ -29,7 +31,7 @@ export default function useFruits() {
     }
 
     const deleteFruits = async (id) => {
-        const response = await fetch(`http://localhost:3001/fruits/${id}`, {
+        const response = await fetch(`${api}/fruits/${id}`, {
             method: 'DELETE'
         })
         if (response) {
@@ -41,7 +43,7 @@ export default function useFruits() {
     }
 
     const addFruits = async (data) => {
-        const response = await fetch("http://localhost:3001/fruits", {
+        const response = await fetch(`${api}/fruits`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -68,7 +70,7 @@ export default function useFruits() {
                 "nutritionalValues": data.nutritionalValues
             })
         };
-        const response = await fetch(`http://localhost:3001/fruits/${id}`, requestOptions);
+        const response = await fetch(`${api}/fruits/${id}`, requestOptions);
 
         if (!response.ok) {
             const errorDetails = await response.json();

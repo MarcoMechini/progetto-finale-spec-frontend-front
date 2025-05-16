@@ -199,7 +199,6 @@ export default function HomePage() {
                         </div>
                     ))}
                 </form>
-
                 <section className='card-container' style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                     {orderedData.length === 0 && <h2>Nessun risultato trovato</h2>}
                     {orderedData.map((item, index) => (

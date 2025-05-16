@@ -34,7 +34,7 @@ a:hover {
 
 /* Stile aggiornato per la nav bar */
 nav {
-    background-color: #333;
+    background-image: url('/immagine-gocce.png');
     padding: 1rem;
 }
 
@@ -51,7 +51,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: black;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;

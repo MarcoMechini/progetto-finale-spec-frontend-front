@@ -13,6 +13,5 @@ export default function AppNavbar() {
                 </li>
             </ul>
         </nav>
-
     )
 }
